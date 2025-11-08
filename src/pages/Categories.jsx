@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { getCategories, imageBase } from "../services/apis";
 import { Loader2 } from "lucide-react";
-
+import { motion } from "framer-motion";
 import logo from "../assets/final logo-03.png";
 
 function Categories() {

@@ -10,6 +10,14 @@ export async function getCategories() {
   const { data } = await axios.get(`${baseUrl}/category`);
   return data?.data;
 }
+export async function getOffers() {
+  const { data } = await axios.get(`${baseUrl}/offers/slider`);
+  return data?.data;
+}
+export async function getOfferDetails(id) {
+  const { data } = await axios.get(`${baseUrl}/offers/slider/${id}`);
+  return data?.data;
+}
 
 export async function getCategory(id) {
   const { data } = await axios.get(`${baseUrl}/category/${id}`);

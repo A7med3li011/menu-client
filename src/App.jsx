@@ -3,6 +3,7 @@ import Categories from "./pages/Categories";
 import SubCategories from "./pages/SubCategories";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
+import OfferDetails from "./pages/OfferDetails";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
     {
       path: "/product/:productId",
       element: <ProductDetails />,
+    },
+    {
+      path: "/offer/:offerId",
+      element: <OfferDetails />,
     },
     {
       path: "*",

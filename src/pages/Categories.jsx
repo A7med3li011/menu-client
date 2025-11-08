@@ -4,6 +4,7 @@ import { getCategories, imageBase } from "../services/apis";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "../assets/final logo-03.png";
+import OffersSlider from "../components/OffersSlider";
 
 function Categories() {
   const navigate = useNavigate();
@@ -70,6 +71,8 @@ function Categories() {
         >
           <img src={logo} alt="Logo" className="h-24 md:h-32 object-contain" />
         </motion.div>
+
+        <OffersSlider />
 
         <motion.h1
           initial={{ opacity: 0, y: -20 }}

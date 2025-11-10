@@ -78,7 +78,7 @@ function OfferDetails() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-secondary rounded-2xl overflow-hidden shadow-2xl mb-8"
+          className="bg-secondary rounded-2xl overflow-hidden shadow-xl border border-gray-200 mb-8"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Image Section */}
@@ -109,7 +109,7 @@ function OfferDetails() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-4xl lg:text-5xl font-bold text-white mb-4"
+                className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
               >
                 {offer.title}
               </motion.h1>
@@ -121,7 +121,7 @@ function OfferDetails() {
                   transition={{ duration: 0.5, delay: 0.5 }}
                   className="mb-6"
                 >
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-gray-700 text-lg leading-relaxed">
                     {offer.description}
                   </p>
                 </motion.div>
@@ -140,7 +140,7 @@ function OfferDetails() {
                       ${offer.priceAfterDiscount}
                     </span>
                   </div>
-                  <p className="text-gray-400 text-sm mt-2">Special Offer Price</p>
+                  <p className="text-gray-600 text-sm mt-2">Special Offer Price</p>
                 </motion.div>
               )}
 
@@ -175,7 +175,7 @@ function OfferDetails() {
           >
             <div className="flex items-center gap-3 mb-6">
               <ShoppingBag className="w-7 h-7 text-popular" />
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-gray-800">
                 Items Included ({offer.items.length})
               </h2>
             </div>
@@ -188,7 +188,7 @@ function OfferDetails() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="bg-secondary rounded-xl overflow-hidden shadow-lg"
+                  className="bg-secondary rounded-xl overflow-hidden shadow-md border border-gray-200"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
@@ -205,12 +205,12 @@ function OfferDetails() {
                   </div>
 
                   <div className="p-5">
-                    <h3 className="text-xl font-bold text-white mb-2">
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">
                       {item.title}
                     </h3>
 
                     {item.description && (
-                      <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+                      <p className="text-gray-600 text-sm mb-3 line-clamp-2">
                         {item.description}
                       </p>
                     )}
@@ -227,7 +227,7 @@ function OfferDetails() {
                     )}
 
                     {item.ingredients && item.ingredients.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-gray-700">
+                      <div className="mt-3 pt-3 border-t border-gray-300">
                         <p className="text-xs text-gray-500 font-semibold mb-2">
                           INGREDIENTS
                         </p>
@@ -235,7 +235,7 @@ function OfferDetails() {
                           {item.ingredients.slice(0, 4).map((ingredient, idx) => (
                             <span
                               key={idx}
-                              className="bg-primary px-2 py-1 rounded-md text-gray-400 text-xs"
+                              className="bg-white px-2 py-1 rounded-md text-gray-700 text-xs border border-gray-300"
                             >
                               {typeof ingredient === "string"
                                 ? ingredient

@@ -72,7 +72,7 @@ function ProductDetails() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-secondary rounded-2xl overflow-hidden shadow-2xl"
+          className="bg-secondary rounded-2xl overflow-hidden shadow-xl border border-gray-200"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Image Section */}
@@ -103,7 +103,7 @@ function ProductDetails() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-4xl lg:text-5xl font-bold text-white mb-4"
+                className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
               >
                 {product.title}
               </motion.h1>
@@ -115,9 +115,23 @@ function ProductDetails() {
                   transition={{ duration: 0.5, delay: 0.5 }}
                   className="mb-6"
                 >
-                  <span className="text-popular text-5xl font-bold">
-                    ${product.price}
-                  </span>
+                  {product.priceAfterDiscount ? (
+                    <div className="flex items-center gap-4 flex-wrap">
+                      <span className="text-popular text-5xl font-bold">
+                        ${product.priceAfterDiscount}
+                      </span>
+                      <span className="text-gray-500 text-3xl line-through">
+                        ${product.price}
+                      </span>
+                      <span className="bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg">
+                        SALE
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-popular text-5xl font-bold">
+                      ${product.price}
+                    </span>
+                  )}
                 </motion.div>
               )}
 
@@ -128,10 +142,10 @@ function ProductDetails() {
                   transition={{ duration: 0.5, delay: 0.6 }}
                   className="mb-6"
                 >
-                  <h2 className="text-xl font-semibold text-white mb-2">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
                     Description
                   </h2>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-gray-700 text-lg leading-relaxed">
                     {product.description}
                   </p>
                 </motion.div>
@@ -144,7 +158,7 @@ function ProductDetails() {
                   transition={{ duration: 0.5, delay: 0.7 }}
                   className="mb-6"
                 >
-                  <h2 className="text-xl font-semibold text-white mb-3">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-3">
                     Ingredients
                   </h2>
                   <div className="flex flex-wrap gap-2">
@@ -154,7 +168,7 @@ function ProductDetails() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.7 + index * 0.05 }}
-                        className="bg-primary px-4 py-2 rounded-full text-gray-300 text-sm"
+                        className="bg-white px-4 py-2 rounded-full text-gray-700 text-sm border border-gray-300"
                       >
                         {typeof ingredient === "string"
                           ? ingredient
@@ -165,16 +179,47 @@ function ProductDetails() {
                 </motion.div>
               )}
 
+              {product.extras && product.extras.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.75 }}
+                  className="mb-6"
+                >
+                  <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                    Available Extras
+                  </h2>
+                  <div className="space-y-2">
+                    {product.extras.map((extra, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.75 + index * 0.05 }}
+                        className="flex items-center justify-between bg-white px-4 py-3 rounded-lg border border-gray-300"
+                      >
+                        <span className="text-gray-800 font-medium">
+                          {extra.name}
+                        </span>
+                        <span className="text-popular font-bold">
+                          +${extra.price}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
               {product.category && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="border-t border-gray-700 pt-6 mt-6"
+                  className="border-t border-gray-300 pt-6 mt-6"
                 >
-                  <div className="flex items-center gap-4 text-sm text-gray-400">
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
                     <div>
-                      <span className="font-semibold text-white">Category:</span>{" "}
+                      <span className="font-semibold text-gray-800">Category:</span>{" "}
                       {typeof product.category === "string"
                         ? product.category
                         : product.category.title}
@@ -183,7 +228,7 @@ function ProductDetails() {
                       <>
                         <span>•</span>
                         <div>
-                          <span className="font-semibold text-white">
+                          <span className="font-semibold text-gray-800">
                             Subcategory:
                           </span>{" "}
                           {typeof product.subCategory === "string"

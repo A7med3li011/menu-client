@@ -74,8 +74,7 @@ function OffersSlider() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              onClick={() => navigate(`/offer/${offer._id}`)}
-              className="relative rounded-lg overflow-hidden shadow-lg h-48 md:h-64 cursor-pointer"
+              className="relative rounded-lg overflow-hidden shadow-lg h-48 md:h-64 "
             >
               <img
                 src={`${imageBase}${offer.image}`}
@@ -109,17 +108,17 @@ function OffersSlider() {
           bottom: 0;
         }
         .offers-swiper .swiper-pagination-bullet {
-          background: #fff;
+          background: #666;
           opacity: 0.5;
         }
         .offers-swiper .swiper-pagination-bullet-active {
           opacity: 1;
-          background: #f59e0b;
+          background: #d4a574;
         }
         .offers-swiper .swiper-button-next,
         .offers-swiper .swiper-button-prev {
           color: #fff;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(212, 165, 116, 0.7);
           width: 40px;
           height: 40px;
           border-radius: 50%;

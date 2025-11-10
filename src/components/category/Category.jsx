@@ -59,10 +59,7 @@ export default function Category() {
               <Grid3X3 className="w-6 h-6 text-popular" />
             </div>
             <div>
-              <h1 className="text-base sm:text-lg lg:text-3xl font-bold text-white tracking-wide">
-                Categories
-              </h1>
-              <p className="text-gray-300 mt-1">
+              <p className="text-gray-700 mt-1">
                 Manage your product categories ({categoryList?.length || 0}{" "}
                 total)
               </p>

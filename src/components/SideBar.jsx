@@ -53,7 +53,7 @@ export default function SideBar() {
       <div className="flex-1 flex flex-col">
         {routes.map(
           (ele, index) =>
-            ele.access.includes(user.role) && (
+            user?.role && ele.access.includes(user.role) && (
               <div
                 onClick={() => navigate(ele.link)}
                 key={index}

@@ -35,9 +35,9 @@
 
 /* Define your theme colors as CSS variables */
 :root {
-  --scroll-track: #f3f3f3;
-  --scroll-thumb: #ffbc0f; /* your popular yellow */
-  --scroll-thumb-hover: #e6ac0c; /* a slightly darker hover state */
+  --scroll-track: #FAFAFA;
+  --scroll-thumb: #D4A574; /* beige accent */
+  --scroll-thumb-hover: #C49563; /* slightly darker hover state */
 }
 
 .hide-scrollbar-order::-webkit-scrollbar {

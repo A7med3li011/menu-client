@@ -4,6 +4,7 @@ import { getCategories, imageBase } from "../services/apis";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "../assets/final logo-03.png";
+import bgImage from "../assets/bg.jpg";
 import OffersSlider from "../components/OffersSlider";
 
 function Categories() {
@@ -60,7 +61,8 @@ function Categories() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-primary p-6"
+      className="min-h-screen  p-6"
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
@@ -74,15 +76,6 @@ function Categories() {
 
         <OffersSlider />
 
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl font-bold text-white mb-8 text-center"
-        >
-          Categories
-        </motion.h1>
-
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -95,10 +88,8 @@ function Categories() {
               variants={itemVariants}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.95 }}
-              onClick={() =>
-                navigate(`/category/${category._id}/subcategories`)
-              }
-              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
+              onClick={() => navigate(`/category/${category._id}/products`)}
+              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
             >
               <motion.div
                 className="relative h-48 overflow-hidden"
@@ -114,11 +105,11 @@ function Categories() {
               </motion.div>
 
               <div className="p-4">
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {category.title}
                 </h2>
                 {category.description && (
-                  <p className="text-gray-400 text-sm line-clamp-2">
+                  <p className="text-gray-600 text-sm line-clamp-2">
                     {category.description}
                   </p>
                 )}
@@ -132,7 +123,7 @@ function Categories() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-center text-gray-400 text-xl mt-20"
+            className="text-center text-gray-600 text-xl mt-20"
           >
             No categories available
           </motion.div>

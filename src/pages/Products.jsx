@@ -82,13 +82,11 @@ function Products() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             whileHover={{ x: -5 }}
-            onClick={() =>
-              navigate(categoryId ? `/category/${categoryId}/subcategories` : "/")
-            }
+            onClick={() => navigate("/")}
             className="flex items-center gap-2 text-popular hover:text-popular/80 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-            Back to Subcategories
+            Back to Category
           </motion.button>
 
           <motion.div
@@ -97,7 +95,11 @@ function Products() {
             transition={{ duration: 0.6 }}
             className="flex justify-center"
           >
-            <img src={logo} alt="Logo" className="h-16 md:h-20 object-contain" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-16 md:h-20 object-contain"
+            />
           </motion.div>
 
           <div className="w-32"></div>
@@ -107,7 +109,7 @@ function Products() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-white mb-2 text-center"
+          className="text-4xl font-bold text-white mb-10 text-center"
         >
           {subCategory?.data?.title || "Products"}
         </motion.h1>
@@ -116,7 +118,7 @@ function Products() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-center mb-8"
+            className="text-gray-600 text-center mb-8"
           >
             {subCategory.data.description}
           </motion.p>
@@ -135,7 +137,7 @@ function Products() {
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate(`/product/${product._id}`)}
-              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
+              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
             >
               <motion.div
                 className="relative h-48 overflow-hidden"
@@ -151,19 +153,33 @@ function Products() {
               </motion.div>
 
               <div className="p-4">
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {product.title}
                 </h2>
                 {product.description && (
-                  <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
                     {product.description}
                   </p>
                 )}
                 {product.price && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-popular text-2xl font-bold">
-                      ${product.price}
-                    </span>
+                  <div className="flex items-center gap-2">
+                    {product.priceAfterDiscount ? (
+                      <>
+                        <span className="text-popular text-2xl font-bold">
+                          ${product.priceAfterDiscount}
+                        </span>
+                        <span className="text-gray-500 text-lg line-through">
+                          ${product.price}
+                        </span>
+                        <span className="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                          SALE
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-popular text-2xl font-bold">
+                        ${product.price}
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -176,7 +192,7 @@ function Products() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-center text-gray-400 text-xl mt-20"
+            className="text-center text-gray-600 text-xl mt-20"
           >
             No products available in this subcategory
           </motion.div>

@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSubCategoriesByCategory, getCategory, imageBase } from "../services/apis";
+import {
+  getSubCategoriesByCategory,
+  getCategory,
+  imageBase,
+} from "../services/apis";
 import { Loader2, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import bgImage from "../assets/bg.jpg";
 import logo from "../assets/final logo-03.png";
 
 function SubCategories() {
@@ -14,7 +19,11 @@ function SubCategories() {
     queryFn: () => getCategory(categoryId),
   });
 
-  const { data: subCategories, isLoading, error } = useQuery({
+  const {
+    data: subCategories,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["subcategories", categoryId],
     queryFn: () => getSubCategoriesByCategory(categoryId),
   });
@@ -62,6 +71,7 @@ function SubCategories() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-primary p-6"
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
@@ -83,7 +93,11 @@ function SubCategories() {
             transition={{ duration: 0.6 }}
             className="flex justify-center"
           >
-            <img src={logo} alt="Logo" className="h-16 md:h-20 object-contain" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-16 md:h-20 object-contain"
+            />
           </motion.div>
 
           <div className="w-32"></div>
@@ -93,7 +107,7 @@ function SubCategories() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-white mb-2 text-center"
+          className="text-4xl font-bold text-gray-800 mb-2 text-center"
         >
           {category?.data?.title || "Subcategories"}
         </motion.h1>
@@ -102,7 +116,7 @@ function SubCategories() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-center mb-8"
+            className="text-gray-600 text-center mb-8"
           >
             {category.data.description}
           </motion.p>
@@ -120,8 +134,8 @@ function SubCategories() {
               variants={itemVariants}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate(`/subcategory/${subCategory._id}/products`)}
-              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
+              onClick={() => navigate(`/category/${subCategory._id}/products`)}
+              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
             >
               <motion.div
                 className="relative h-48 overflow-hidden"
@@ -137,11 +151,11 @@ function SubCategories() {
               </motion.div>
 
               <div className="p-4">
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {subCategory.title}
                 </h2>
                 {subCategory.description && (
-                  <p className="text-gray-400 text-sm line-clamp-2">
+                  <p className="text-gray-600 text-sm line-clamp-2">
                     {subCategory.description}
                   </p>
                 )}
@@ -155,7 +169,7 @@ function SubCategories() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-center text-gray-400 text-xl mt-20"
+            className="text-center text-gray-600 text-xl mt-20"
           >
             No subcategories available in this category
           </motion.div>

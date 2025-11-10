@@ -1,9 +1,10 @@
 import axios from "axios";
 
-// export const baseUrl = `https://admin.patriacoffeebeans.com/api/v1`;
-// export const imageBase = `https://admin.patriacoffeebeans.com/uploads/`;
-export const baseUrl = `http://localhost:3001/api/v1`;
-export const imageBase = `http://localhost:3001/uploads/`;
+// export const baseUrl = `http://localhost:3001/api/v1`;
+// export const imageBase = `http://localhost:3001/uploads/`;
+
+export const baseUrl = `https://api.stationonelounge.com/api/v1`;
+export const imageBase = `https://api.stationonelounge.com/uploads/`;
 
 // ==================== CATEGORIES ====================
 export async function getCategories() {
@@ -39,13 +40,15 @@ export async function getSubCategory(id) {
 
 // ==================== PRODUCTS ====================
 export async function getProductsBySubCategory(subCategoryId) {
-  const { data } = await axios.get(
-    `${baseUrl}/product/bysubcat/${subCategoryId}`
-  );
+  const { data } = await axios.get(`${baseUrl}/product/cat/${subCategoryId}`);
   return data;
 }
 
 export async function getProduct(id) {
   const { data } = await axios.get(`${baseUrl}/product/${id}`);
+  return data;
+}
+export async function sendReview(body) {
+  const { data } = await axios.post(`${baseUrl}/review`, body);
   return data;
 }

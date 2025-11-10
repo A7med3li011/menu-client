@@ -42,7 +42,7 @@ export default function CategoryCard({ data, onDelete }) {
   };
   return (
     <>
-      <div className="group bg-secondary rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-700/20 hover:border-popular/30">
+      <div className="group bg-secondary rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-300/50 hover:border-popular/50">
         {/* Image Container */}
         <div className="relative overflow-hidden">
           <img
@@ -60,7 +60,7 @@ export default function CategoryCard({ data, onDelete }) {
 
         {/* Content Container */}
         <div className="p-5 space-y-4">
-          <h3 className="text-xl font-bold text-white group-hover:text-popular transition-colors duration-300 leading-tight">
+          <h3 className="text-xl font-bold text-gray-800 group-hover:text-popular transition-colors duration-300 leading-tight">
             {data?.title}
           </h3>
 
@@ -71,10 +71,10 @@ export default function CategoryCard({ data, onDelete }) {
                 <TableOfContents className="w-4 h-4 text-popular" />
               </div>
               <div className="flex-1">
-                <span className="text-gray-300 text-sm font-medium">
+                <span className="text-gray-600 text-sm font-medium">
                   Sub Categories
                 </span>
-                <p className="text-white font-semibold">
+                <p className="text-gray-800 font-semibold">
                   {data?.numsubCategory}
                 </p>
               </div>
@@ -86,10 +86,10 @@ export default function CategoryCard({ data, onDelete }) {
                 <Utensils className="w-4 h-4 text-popular" />
               </div>
               <div className="flex-1">
-                <span className="text-gray-300 text-sm font-medium">
+                <span className="text-gray-600 text-sm font-medium">
                   Products
                 </span>
-                <p className="text-white font-semibold">{data?.products}</p>
+                <p className="text-gray-800 font-semibold">{data?.products}</p>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function CategoryCard({ data, onDelete }) {
           }}
         >
           <div
-            className="bg-secondary border border-gray-700 rounded-xl p-6 shadow-2xl"
+            className="bg-white border border-gray-300 rounded-xl p-6 shadow-2xl"
             style={{
               width: "500px",
               maxWidth: "90vw",
@@ -143,13 +143,13 @@ export default function CategoryCard({ data, onDelete }) {
                 <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
                   <AlertTriangle className="w-5 h-5 text-red-500" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-gray-800">
                   Delete Category
                 </h3>
               </div>
               <button
                 onClick={handleCancelDelete}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-gray-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -157,12 +157,12 @@ export default function CategoryCard({ data, onDelete }) {
 
             {/* Modal Content */}
             <div className="mb-6">
-              <p className="text-gray-300 mb-2">
+              <p className="text-gray-700 mb-2">
                 Are you sure you want to delete this category? This will also
                 remove all sub categories and products under it.
               </p>
-              <p className="text-white font-medium mb-2">{data?.title}</p>
-              <p className="text-red-400 text-sm">
+              <p className="text-gray-800 font-medium mb-2">{data?.title}</p>
+              <p className="text-red-500 text-sm">
                 This action cannot be undone.
               </p>
             </div>
@@ -172,13 +172,13 @@ export default function CategoryCard({ data, onDelete }) {
               <button
                 onClick={handleConfirmDelete}
                 disabled={isDeleting}
-                className="flex-1 py-2 px-4 bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 border border-red-500/30 hover:border-red-500/50 rounded-lg font-medium text-sm transition-all duration-300"
+                className="flex-1 py-2 px-4 bg-red-500/20 hover:bg-red-500/30 text-red-500 hover:text-red-600 border border-red-500/30 hover:border-red-500/50 rounded-lg font-medium text-sm transition-all duration-300"
               >
                 {isDeleting ? "Deleting..." : "Delete"}
               </button>
               <button
                 onClick={handleCancelDelete}
-                className="flex-1 py-2 px-4 bg-gray-600/20 hover:bg-gray-600/30 text-gray-300 hover:text-white border border-gray-600/30 hover:border-gray-500/50 rounded-lg font-medium text-sm transition-all duration-300"
+                className="flex-1 py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800 border border-gray-300 hover:border-gray-400 rounded-lg font-medium text-sm transition-all duration-300"
               >
                 Cancel
               </button>

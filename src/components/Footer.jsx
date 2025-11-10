@@ -76,7 +76,9 @@ function Footer() {
 
           {/* Bottom Section - Copyright */}
           <div className="text-gray-400 text-xs sm:text-sm text-center pt-3 border-t border-gray-700">
-            <p>© {new Date().getFullYear()} All rights reserved</p>
+            <p>
+              © {new Date().getFullYear()} All rights reserved by station one
+            </p>
           </div>
         </div>
       </div>

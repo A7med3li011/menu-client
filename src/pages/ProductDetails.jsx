@@ -38,10 +38,10 @@ function ProductDetails() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-primary p-6"
+      className="min-h-screen bg-primary p-3 sm:p-4 md:p-6"
     >
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6">
           <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -50,10 +50,11 @@ function ProductDetails() {
             onClick={() =>
               navigate(subCategoryId ? `/subcategory/${subCategoryId}/products` : "/")
             }
-            className="flex items-center gap-2 text-popular hover:text-popular/80 transition-colors"
+            className="flex items-center gap-1 sm:gap-2 text-popular hover:text-popular/80 transition-colors text-sm sm:text-base"
           >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Products
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">Back to Products</span>
+            <span className="sm:hidden">Back</span>
           </motion.button>
 
           <motion.div
@@ -62,17 +63,17 @@ function ProductDetails() {
             transition={{ duration: 0.6 }}
             className="flex justify-center"
           >
-            <img src={logo} alt="Logo" className="h-16 md:h-20 object-contain" />
+            <img src={logo} alt="Logo" className="h-12 sm:h-14 md:h-16 lg:h-20 object-contain" />
           </motion.div>
 
-          <div className="w-32"></div>
+          <div className="w-16 sm:w-24 md:w-32"></div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-secondary rounded-2xl overflow-hidden shadow-xl border border-gray-200"
+          className="bg-secondary rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-gray-200"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Image Section */}
@@ -80,7 +81,7 @@ function ProductDetails() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative h-96 lg:h-full overflow-hidden"
+              className="relative h-64 sm:h-80 md:h-96 lg:h-full overflow-hidden"
             >
               <motion.img
                 whileHover={{ scale: 1.1 }}
@@ -97,13 +98,13 @@ function ProductDetails() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="p-8 lg:p-12 flex flex-col justify-center"
+              className="p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center"
             >
               <motion.h1
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4"
               >
                 {product.title}
               </motion.h1>
@@ -113,22 +114,22 @@ function ProductDetails() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
-                  className="mb-6"
+                  className="mb-4 sm:mb-6"
                 >
                   {product.priceAfterDiscount ? (
-                    <div className="flex items-center gap-4 flex-wrap">
-                      <span className="text-popular text-5xl font-bold">
+                    <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-wrap">
+                      <span className="text-popular text-3xl sm:text-4xl md:text-5xl font-bold">
                         ${product.priceAfterDiscount}
                       </span>
-                      <span className="text-gray-500 text-3xl line-through">
+                      <span className="text-gray-500 text-xl sm:text-2xl md:text-3xl line-through">
                         ${product.price}
                       </span>
-                      <span className="bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg">
+                      <span className="bg-red-500 text-white text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg">
                         SALE
                       </span>
                     </div>
                   ) : (
-                    <span className="text-popular text-5xl font-bold">
+                    <span className="text-popular text-3xl sm:text-4xl md:text-5xl font-bold">
                       ${product.price}
                     </span>
                   )}
@@ -140,12 +141,12 @@ function ProductDetails() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  className="mb-6"
+                  className="mb-4 sm:mb-6"
                 >
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
                     Description
                   </h2>
-                  <p className="text-gray-700 text-lg leading-relaxed">
+                  <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
                     {product.description}
                   </p>
                 </motion.div>
@@ -156,19 +157,19 @@ function ProductDetails() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
-                  className="mb-6"
+                  className="mb-4 sm:mb-6"
                 >
-                  <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">
                     Ingredients
                   </h2>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {product.ingredients.map((ingredient, index) => (
                       <motion.span
                         key={index}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.7 + index * 0.05 }}
-                        className="bg-white px-4 py-2 rounded-full text-gray-700 text-sm border border-gray-300"
+                        className="bg-white px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full text-gray-700 text-xs sm:text-sm border border-gray-300"
                       >
                         {typeof ingredient === "string"
                           ? ingredient
@@ -184,24 +185,24 @@ function ProductDetails() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.75 }}
-                  className="mb-6"
+                  className="mb-4 sm:mb-6"
                 >
-                  <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">
                     Available Extras
                   </h2>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5 sm:space-y-2">
                     {product.extras.map((extra, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.3, delay: 0.75 + index * 0.05 }}
-                        className="flex items-center justify-between bg-white px-4 py-3 rounded-lg border border-gray-300"
+                        className="flex items-center justify-between bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300"
                       >
-                        <span className="text-gray-800 font-medium">
+                        <span className="text-gray-800 font-medium text-sm sm:text-base">
                           {extra.name}
                         </span>
-                        <span className="text-popular font-bold">
+                        <span className="text-popular font-bold text-sm sm:text-base">
                           +${extra.price}
                         </span>
                       </motion.div>
@@ -215,9 +216,9 @@ function ProductDetails() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="border-t border-gray-300 pt-6 mt-6"
+                  className="border-t border-gray-300 pt-4 sm:pt-6 mt-4 sm:mt-6"
                 >
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                     <div>
                       <span className="font-semibold text-gray-800">Category:</span>{" "}
                       {typeof product.category === "string"
@@ -226,7 +227,7 @@ function ProductDetails() {
                     </div>
                     {product.subCategory && (
                       <>
-                        <span>•</span>
+                        <span className="hidden sm:inline">•</span>
                         <div>
                           <span className="font-semibold text-gray-800">
                             Subcategory:

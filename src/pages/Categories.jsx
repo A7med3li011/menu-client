@@ -61,7 +61,7 @@ function Categories() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen  p-6"
+      className="min-h-screen p-3 sm:p-4 md:p-6"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="max-w-7xl mx-auto">
@@ -69,9 +69,9 @@ function Categories() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-4 sm:mb-6 md:mb-8"
         >
-          <img src={logo} alt="Logo" className="h-24 md:h-32 object-contain" />
+          <img src={logo} alt="Logo" className="h-16 sm:h-20 md:h-24 lg:h-32 object-contain" />
         </motion.div>
 
         <OffersSlider />
@@ -80,7 +80,7 @@ function Categories() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6"
         >
           {categories?.map((category, index) => (
             <motion.div
@@ -92,7 +92,7 @@ function Categories() {
               className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
             >
               <motion.div
-                className="relative h-48 overflow-hidden"
+                className="relative h-40 sm:h-44 md:h-48 overflow-hidden"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               >
@@ -104,12 +104,12 @@ function Categories() {
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
               </motion.div>
 
-              <div className="p-4">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">
+              <div className="p-3 sm:p-4">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">
                   {category.title}
                 </h2>
                 {category.description && (
-                  <p className="text-gray-600 text-sm line-clamp-2">
+                  <p className="text-gray-600 text-xs sm:text-sm line-clamp-2">
                     {category.description}
                   </p>
                 )}

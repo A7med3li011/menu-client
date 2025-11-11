@@ -73,7 +73,7 @@ function Products() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-primary p-3 sm:p-4 md:p-6"
+      className="min-h-screen bg-primary p-3 sm:p-4 md:p-6 rounded-lg"
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6">
@@ -82,12 +82,11 @@ function Products() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             whileHover={{ x: -5 }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate(categoryId ? `/category/${categoryId}/subcategories` : "/")}
             className="flex items-center gap-1 sm:gap-2 text-popular hover:text-popular/80 transition-colors text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="hidden sm:inline">Back to Category</span>
-            <span className="sm:hidden">Back</span>
+            <span className="hidden sm:inline">Back to Subcategories</span>
           </motion.button>
 
           <motion.div
@@ -150,7 +149,7 @@ function Products() {
                   alt={product.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
               </motion.div>
 
               <div className="p-3 sm:p-4">
@@ -167,10 +166,10 @@ function Products() {
                     {product.priceAfterDiscount ? (
                       <>
                         <span className="text-popular text-xl sm:text-2xl font-bold">
-                          ${product.priceAfterDiscount}
+                          {product.priceAfterDiscount} LE
                         </span>
                         <span className="text-gray-500 text-base sm:text-lg line-through">
-                          ${product.price}
+                          {product.price} LE
                         </span>
                         <span className="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                           SALE
@@ -178,7 +177,7 @@ function Products() {
                       </>
                     ) : (
                       <span className="text-popular text-xl sm:text-2xl font-bold">
-                        ${product.price}
+                        {product.price} LE
                       </span>
                     )}
                   </div>

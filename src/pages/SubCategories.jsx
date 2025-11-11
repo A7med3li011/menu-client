@@ -135,7 +135,9 @@ function SubCategories() {
               variants={itemVariants}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate(`/category/${subCategory._id}/products`)}
+              onClick={() =>
+                navigate(`/subcategory/${subCategory._id}/products`)
+              }
               className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
             >
               <motion.div
@@ -148,7 +150,7 @@ function SubCategories() {
                   alt={subCategory.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
               </motion.div>
 
               <div className="p-3 sm:p-4">

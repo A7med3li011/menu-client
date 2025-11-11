@@ -27,7 +27,7 @@ function App() {
           element: <SubCategories />,
         },
         {
-          path: "/category/:subCategoryId/products",
+          path: "/subcategory/:subCategoryId/products",
           element: <Products />,
         },
         {

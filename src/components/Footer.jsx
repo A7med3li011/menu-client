@@ -10,13 +10,13 @@ function Footer() {
     {
       name: "Facebook",
       icon: Facebook,
-      url: "https://facebook.com",
+      url: "https://www.facebook.com/Stationonee/",
       color: "hover:text-[#1877F2]",
     },
     {
       name: "Instagram",
       icon: Instagram,
-      url: "https://instagram.com",
+      url: "https://www.instagram.com/station_one_resturant_cafe/",
       color: "hover:text-[#E4405F]",
     },
     {

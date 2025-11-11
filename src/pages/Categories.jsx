@@ -71,7 +71,11 @@ function Categories() {
           transition={{ duration: 0.6 }}
           className="flex justify-center mb-4 sm:mb-6 md:mb-8"
         >
-          <img src={logo} alt="Logo" className="h-16 sm:h-20 md:h-24 lg:h-32 object-contain" />
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-16 sm:h-20 md:h-24 lg:h-32 object-contain"
+          />
         </motion.div>
 
         <OffersSlider />
@@ -88,7 +92,7 @@ function Categories() {
               variants={itemVariants}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate(`/category/${category._id}/products`)}
+              onClick={() => navigate(`/category/${category._id}/subcategories`)}
               className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
             >
               <motion.div
@@ -101,7 +105,7 @@ function Categories() {
                   alt={category.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
               </motion.div>
 
               <div className="p-3 sm:p-4">

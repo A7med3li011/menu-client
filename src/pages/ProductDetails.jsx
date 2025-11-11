@@ -9,7 +9,11 @@ function ProductDetails() {
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  const { data: productData, isLoading, error } = useQuery({
+  const {
+    data: productData,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["product", productId],
     queryFn: () => getProduct(productId),
   });
@@ -28,7 +32,9 @@ function ProductDetails() {
   if (error || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-primary">
-        <div className="text-red-500 text-xl">Error loading product details</div>
+        <div className="text-red-500 text-xl">
+          Error loading product details
+        </div>
       </div>
     );
   }
@@ -38,7 +44,7 @@ function ProductDetails() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-primary p-3 sm:p-4 md:p-6"
+      className="min-h-screen bg-primary p-3 sm:p-4 md:p-6 rounded-xl"
     >
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6">
@@ -48,7 +54,9 @@ function ProductDetails() {
             transition={{ duration: 0.5 }}
             whileHover={{ x: -5 }}
             onClick={() =>
-              navigate(subCategoryId ? `/subcategory/${subCategoryId}/products` : "/")
+              navigate(
+                subCategoryId ? `/subcategory/${subCategoryId}/products` : "/"
+              )
             }
             className="flex items-center gap-1 sm:gap-2 text-popular hover:text-popular/80 transition-colors text-sm sm:text-base"
           >
@@ -63,7 +71,11 @@ function ProductDetails() {
             transition={{ duration: 0.6 }}
             className="flex justify-center"
           >
-            <img src={logo} alt="Logo" className="h-12 sm:h-14 md:h-16 lg:h-20 object-contain" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-12 sm:h-14 md:h-16 lg:h-20 object-contain"
+            />
           </motion.div>
 
           <div className="w-16 sm:w-24 md:w-32"></div>
@@ -90,7 +102,7 @@ function ProductDetails() {
                 alt={product.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-transparent to-transparent lg:bg-gradient-to-r"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 via-transparent to-transparent lg:bg-gradient-to-r"></div>
             </motion.div>
 
             {/* Details Section */}
@@ -119,10 +131,10 @@ function ProductDetails() {
                   {product.priceAfterDiscount ? (
                     <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-wrap">
                       <span className="text-popular text-3xl sm:text-4xl md:text-5xl font-bold">
-                        ${product.priceAfterDiscount}
+                        {product.priceAfterDiscount} LE
                       </span>
                       <span className="text-gray-500 text-xl sm:text-2xl md:text-3xl line-through">
-                        ${product.price}
+                        {product.price} LE
                       </span>
                       <span className="bg-red-500 text-white text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg">
                         SALE
@@ -130,7 +142,7 @@ function ProductDetails() {
                     </div>
                   ) : (
                     <span className="text-popular text-3xl sm:text-4xl md:text-5xl font-bold">
-                      ${product.price}
+                      {product.price} LE
                     </span>
                   )}
                 </motion.div>
@@ -168,7 +180,10 @@ function ProductDetails() {
                         key={index}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: 0.7 + index * 0.05 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.7 + index * 0.05,
+                        }}
                         className="bg-white px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-full text-gray-700 text-xs sm:text-sm border border-gray-300"
                       >
                         {typeof ingredient === "string"
@@ -196,14 +211,17 @@ function ProductDetails() {
                         key={index}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: 0.75 + index * 0.05 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.75 + index * 0.05,
+                        }}
                         className="flex items-center justify-between bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300"
                       >
                         <span className="text-gray-800 font-medium text-sm sm:text-base">
                           {extra.name}
                         </span>
                         <span className="text-popular font-bold text-sm sm:text-base">
-                          +${extra.price}
+                          +{extra.price} LE
                         </span>
                       </motion.div>
                     ))}
@@ -220,7 +238,9 @@ function ProductDetails() {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                     <div>
-                      <span className="font-semibold text-gray-800">Category:</span>{" "}
+                      <span className="font-semibold text-gray-800">
+                        Category:
+                      </span>{" "}
                       {typeof product.category === "string"
                         ? product.category
                         : product.category.title}

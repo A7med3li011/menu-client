@@ -7,19 +7,61 @@ import { sendReview } from "../services/apis";
 
 function Review() {
   const navigate = useNavigate();
-  const [rating, setRating] = useState(0);
-  const [hoveredRating, setHoveredRating] = useState(0);
+  const [overallRating, setOverallRating] = useState(0);
+  const [hoveredOverallRating, setHoveredOverallRating] = useState(0);
+  const [hygieneRating, setHygieneRating] = useState(0);
+  const [hoveredHygieneRating, setHoveredHygieneRating] = useState(0);
+  const [tasteRating, setTasteRating] = useState(0);
+  const [hoveredTasteRating, setHoveredTasteRating] = useState(0);
+  const [wouldComeBack, setWouldComeBack] = useState(false);
+  const [additionalComments, setAdditionalComments] = useState("");
   const [name, setName] = useState("");
-  const [comment, setComment] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  // Reusable StarRating component
+  const StarRating = ({ rating, setRating, hoveredRating, setHoveredRating }) => (
+    <div className="flex justify-center gap-1 sm:gap-2">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <motion.button
+          key={star}
+          type="button"
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setRating(star)}
+          onMouseEnter={() => setHoveredRating(star)}
+          onMouseLeave={() => setHoveredRating(0)}
+          className="focus:outline-none p-1"
+        >
+          <Star
+            className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-200 ${
+              star <= (hoveredRating || rating)
+                ? "fill-popular text-popular"
+                : "text-gray-300"
+            }`}
+          />
+        </motion.button>
+      ))}
+    </div>
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (rating === 0) {
-      setError("Please select a rating");
+    if (overallRating === 0) {
+      setError("Please rate your overall satisfaction");
+      return;
+    }
+
+    if (hygieneRating === 0) {
+      setError("Please rate the hygiene");
+      return;
+    }
+
+    if (tasteRating === 0) {
+      setError("Please rate the taste of food");
       return;
     }
 
@@ -28,14 +70,23 @@ function Review() {
       return;
     }
 
+    if (!mobileNumber.trim()) {
+      setError("Please enter your mobile number");
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
 
     try {
       await sendReview({
-        rate: rating,
-        comment: comment,
+        overallRating: overallRating,
+        hygieneRating: hygieneRating,
+        tasteRating: tasteRating,
+        wouldComeBack: wouldComeBack,
+        additionalComments: additionalComments,
         name: name,
+        mobileNumber: mobileNumber,
       });
 
       setIsSubmitting(false);
@@ -43,9 +94,13 @@ function Review() {
 
       // Reset form after 2 seconds and redirect
       setTimeout(() => {
-        setRating(0);
+        setOverallRating(0);
+        setHygieneRating(0);
+        setTasteRating(0);
+        setWouldComeBack(false);
+        setAdditionalComments("");
         setName("");
-        setComment("");
+        setMobileNumber("");
         setSubmitted(false);
         navigate("/");
       }, 2000);
@@ -138,10 +193,121 @@ function Review() {
                 </motion.div>
               )}
 
+              {/* Question 1: Overall Satisfaction */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
+                className="mb-6 sm:mb-8"
+              >
+                <label className="block text-gray-800 font-semibold mb-3 sm:mb-4 text-center text-sm sm:text-base">
+                  What is your overall satisfaction with our restaurant? *
+                </label>
+                <StarRating
+                  rating={overallRating}
+                  setRating={setOverallRating}
+                  hoveredRating={hoveredOverallRating}
+                  setHoveredRating={setHoveredOverallRating}
+                />
+                {overallRating > 0 && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center mt-3 sm:mt-4 text-gray-600 text-sm sm:text-base"
+                  >
+                    {overallRating === 1 && "We're sorry to hear that"}
+                    {overallRating === 2 && "We'll do better"}
+                    {overallRating === 3 && "Thank you for your feedback"}
+                    {overallRating === 4 && "We're glad you enjoyed it"}
+                    {overallRating === 5 && "Amazing! Thank you so much!"}
+                  </motion.p>
+                )}
+              </motion.div>
+
+              {/* Question 2: Hygiene Rating */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
+                className="mb-6 sm:mb-8"
+              >
+                <label className="block text-gray-800 font-semibold mb-3 sm:mb-4 text-center text-sm sm:text-base">
+                  How would you rate the hygiene? *
+                </label>
+                <StarRating
+                  rating={hygieneRating}
+                  setRating={setHygieneRating}
+                  hoveredRating={hoveredHygieneRating}
+                  setHoveredRating={setHoveredHygieneRating}
+                />
+              </motion.div>
+
+              {/* Question 3: Taste of Food */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="mb-6 sm:mb-8"
+              >
+                <label className="block text-gray-800 font-semibold mb-3 sm:mb-4 text-center text-sm sm:text-base">
+                  How would you rate the taste of food? *
+                </label>
+                <StarRating
+                  rating={tasteRating}
+                  setRating={setTasteRating}
+                  hoveredRating={hoveredTasteRating}
+                  setHoveredRating={setHoveredTasteRating}
+                />
+              </motion.div>
+
+              {/* Question 4: Would you come back checkbox */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.55 }}
+                className="mb-6 sm:mb-8"
+              >
+                <label className="flex items-center justify-center gap-2 sm:gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={wouldComeBack}
+                    onChange={(e) => setWouldComeBack(e.target.checked)}
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-popular focus:ring-popular focus:ring-2 border-gray-300 rounded cursor-pointer"
+                  />
+                  <span className="text-gray-800 font-semibold text-sm sm:text-base">
+                    Would you come back to eat with us again?
+                  </span>
+                </label>
+              </motion.div>
+
+              {/* Question 5: Additional Comments */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="mb-4 sm:mb-6"
+              >
+                <label
+                  htmlFor="additionalComments"
+                  className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
+                >
+                  Is there anything else you want to tell us?
+                </label>
+                <textarea
+                  id="additionalComments"
+                  value={additionalComments}
+                  onChange={(e) => setAdditionalComments(e.target.value)}
+                  rows="4"
+                  placeholder="Share your thoughts with us..."
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all resize-none text-gray-800 text-sm sm:text-base"
+                />
+              </motion.div>
+
+              {/* Question 6: Name Input */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.65 }}
                 className="mb-4 sm:mb-6"
               >
                 <label
@@ -161,78 +327,34 @@ function Review() {
                 />
               </motion.div>
 
+              {/* Question 7: Mobile Number Input */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.45 }}
-                className="mb-6 sm:mb-8"
-              >
-                <label className="block text-gray-800 font-semibold mb-3 sm:mb-4 text-center text-sm sm:text-base">
-                  How would you rate your experience? *
-                </label>
-                <div className="flex justify-center gap-1 sm:gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <motion.button
-                      key={star}
-                      type="button"
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoveredRating(star)}
-                      onMouseLeave={() => setHoveredRating(0)}
-                      className="focus:outline-none p-1"
-                    >
-                      <Star
-                        className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-200 ${
-                          star <= (hoveredRating || rating)
-                            ? "fill-popular text-popular"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    </motion.button>
-                  ))}
-                </div>
-                {rating > 0 && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center mt-3 sm:mt-4 text-gray-600 text-sm sm:text-base"
-                  >
-                    {rating === 1 && "We're sorry to hear that"}
-                    {rating === 2 && "We'll do better"}
-                    {rating === 3 && "Thank you for your feedback"}
-                    {rating === 4 && "We're glad you enjoyed it"}
-                    {rating === 5 && "Amazing! Thank you so much!"}
-                  </motion.p>
-                )}
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.55 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
                 className="mb-6 sm:mb-8"
               >
                 <label
-                  htmlFor="comment"
+                  htmlFor="mobileNumber"
                   className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
                 >
-                  Tell us more (optional)
+                  Mobile Number *
                 </label>
-                <textarea
-                  id="comment"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  rows="4"
-                  placeholder="Share your thoughts with us..."
-                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all resize-none text-gray-800 text-sm sm:text-base"
+                <input
+                  id="mobileNumber"
+                  type="tel"
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  placeholder="Enter your mobile number"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base"
+                  required
                 />
               </motion.div>
 
               <motion.button
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.65 }}
+                transition={{ duration: 0.5, delay: 0.75 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"

@@ -147,7 +147,7 @@ function SubCategories() {
                   alt={subCategory.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
               </motion.div>
 
               <div className="p-4">

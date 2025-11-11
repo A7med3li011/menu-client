@@ -95,7 +95,7 @@ function OfferDetails() {
                 alt={offer.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-transparent to-transparent lg:bg-gradient-to-r"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 via-transparent to-transparent lg:bg-gradient-to-r"></div>
             </motion.div>
 
             {/* Details Section */}
@@ -140,7 +140,9 @@ function OfferDetails() {
                       ${offer.priceAfterDiscount}
                     </span>
                   </div>
-                  <p className="text-gray-600 text-sm mt-2">Special Offer Price</p>
+                  <p className="text-gray-600 text-sm mt-2">
+                    Special Offer Price
+                  </p>
                 </motion.div>
               )}
 
@@ -151,12 +153,20 @@ function OfferDetails() {
                   transition={{ duration: 0.5, delay: 0.7 }}
                   className="mt-4"
                 >
-                  <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
-                    offer.isActive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-                  }`}>
-                    <div className={`w-2 h-2 rounded-full ${offer.isActive ? 'bg-green-400' : 'bg-red-400'}`}></div>
+                  <div
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
+                      offer.isActive
+                        ? "bg-green-500/20 text-green-400"
+                        : "bg-red-500/20 text-red-400"
+                    }`}
+                  >
+                    <div
+                      className={`w-2 h-2 rounded-full ${
+                        offer.isActive ? "bg-green-400" : "bg-red-400"
+                      }`}
+                    ></div>
                     <span className="text-sm font-semibold">
-                      {offer.isActive ? 'Active Offer' : 'Offer Expired'}
+                      {offer.isActive ? "Active Offer" : "Offer Expired"}
                     </span>
                   </div>
                 </motion.div>
@@ -196,7 +206,7 @@ function OfferDetails() {
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
                     {item.available === false && (
                       <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                         Unavailable
@@ -232,16 +242,18 @@ function OfferDetails() {
                           INGREDIENTS
                         </p>
                         <div className="flex flex-wrap gap-1">
-                          {item.ingredients.slice(0, 4).map((ingredient, idx) => (
-                            <span
-                              key={idx}
-                              className="bg-white px-2 py-1 rounded-md text-gray-700 text-xs border border-gray-300"
-                            >
-                              {typeof ingredient === "string"
-                                ? ingredient
-                                : ingredient.title || ingredient.name}
-                            </span>
-                          ))}
+                          {item.ingredients
+                            .slice(0, 4)
+                            .map((ingredient, idx) => (
+                              <span
+                                key={idx}
+                                className="bg-white px-2 py-1 rounded-md text-gray-700 text-xs border border-gray-300"
+                              >
+                                {typeof ingredient === "string"
+                                  ? ingredient
+                                  : ingredient.title || ingredient.name}
+                              </span>
+                            ))}
                           {item.ingredients.length > 4 && (
                             <span className="text-gray-500 text-xs px-2 py-1">
                               +{item.ingredients.length - 4} more

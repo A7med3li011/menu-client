@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { getCategories, imageBase } from "../services/apis";
 import { Loader2 } from "lucide-react";
-import { motion } from "framer-motion";
 import logo from "../assets/final logo-03.png";
 import bgImage from "../assets/bg.jpg";
 import OffersSlider from "../components/OffersSlider";
@@ -35,74 +34,35 @@ function Categories() {
     );
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen  p-6"
+    <div
+      className="min-h-screen p-6"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center mb-8"
-        >
+        <div className="flex justify-center mb-8">
           <img src={logo} alt="Logo" className="h-24 md:h-32 object-contain" />
-        </motion.div>
+        </div>
 
         <OffersSlider />
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          {categories?.map((category, index) => (
-            <motion.div
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {categories?.map((category) => (
+            <div
               key={category._id}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate(`/category/${category._id}/products`)}
-              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200"
+              onClick={() =>
+                navigate(`/category/${category._id}/subcategories`)
+              }
+              className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200 transition-all duration-300 hover:scale-105"
             >
-              <motion.div
-                className="relative h-48 overflow-hidden"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={`${imageBase}${category.image}`}
                   alt={category.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 to-transparent"></div>
-              </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/20 to-transparent"></div>
+              </div>
 
               <div className="p-4">
                 <h2 className="text-xl font-bold text-gray-800 mb-2">
@@ -114,22 +74,17 @@ function Categories() {
                   </p>
                 )}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {categories?.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-center text-gray-600 text-xl mt-20"
-          >
+          <div className="text-center text-gray-600 text-xl mt-20">
             No categories available
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 

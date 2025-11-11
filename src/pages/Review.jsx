@@ -7,24 +7,98 @@ import { sendReview } from "../services/apis";
 
 function Review() {
   const navigate = useNavigate();
-  const [rating, setRating] = useState(0);
-  const [hoveredRating, setHoveredRating] = useState(0);
-  const [name, setName] = useState("");
-  const [comment, setComment] = useState("");
+
+  // Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    firstVisit: false,
+    tasteRating: 0,
+    hygieneRating: 0,
+    overallRating: 0,
+    wouldComeBack: false,
+    mobileNumber: "",
+    email: "",
+    additionalComments: "",
+    howDidYouHear: "",
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  // Handle form field changes
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // Handle star rating changes
+  const handleRatingChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // Star rating component
+  const StarRating = ({ field, value, label }) => (
+    <div className="mb-6 sm:mb-8">
+      <label className="block text-gray-800 font-semibold mb-3 text-sm sm:text-base">
+        {label} *
+      </label>
+      <div className="flex gap-1 sm:gap-2">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <motion.button
+            key={star}
+            type="button"
+            whileTap={{ scale: 0.9 }}
+            onClick={() => handleRatingChange(field, star)}
+            className="focus:outline-none p-1"
+          >
+            <Star
+              className={`w-6 h-6 sm:w-8 sm:h-8 transition-all duration-200 ${
+                star <= value
+                  ? "fill-popular text-popular"
+                  : "text-gray-300"
+              }`}
+            />
+          </motion.button>
+        ))}
+      </div>
+      {value > 0 && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mt-2 text-gray-600 text-xs sm:text-sm"
+        >
+          Rating: {value} out of 5
+        </motion.p>
+      )}
+    </div>
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (rating === 0) {
-      setError("Please select a rating");
+    // Validation
+    if (formData.overallRating === 0) {
+      setError("Please rate your overall satisfaction");
       return;
     }
 
-    if (!name.trim()) {
+    if (formData.hygieneRating === 0) {
+      setError("Please rate the hygiene");
+      return;
+    }
+
+    if (formData.tasteRating === 0) {
+      setError("Please rate the taste of our food");
+      return;
+    }
+
+    if (!formData.name.trim()) {
       setError("Please enter your name");
+      return;
+    }
+
+    if (!formData.mobileNumber.trim()) {
+      setError("Please enter your mobile number");
       return;
     }
 
@@ -32,26 +106,33 @@ function Review() {
     setError("");
 
     try {
-      await sendReview({
-        rate: rating,
-        comment: comment,
-        name: name,
-      });
+      await sendReview(formData);
 
       setIsSubmitting(false);
       setSubmitted(true);
 
-      // Reset form after 2 seconds and redirect
+      // Reset form after 3 seconds and redirect
       setTimeout(() => {
-        setRating(0);
-        setName("");
-        setComment("");
+        setFormData({
+          name: "",
+          firstVisit: false,
+          tasteRating: 0,
+          hygieneRating: 0,
+          overallRating: 0,
+          wouldComeBack: false,
+          mobileNumber: "",
+          email: "",
+          additionalComments: "",
+          howDidYouHear: "",
+        });
         setSubmitted(false);
         navigate("/");
-      }, 2000);
+      }, 3000);
     } catch (err) {
       setIsSubmitting(false);
-      setError(err.response?.data?.message || "Failed to submit review. Please try again.");
+      setError(
+        err.response?.data?.message || "Failed to submit review. Please try again."
+      );
     }
   };
 
@@ -127,112 +208,217 @@ function Review() {
               </p>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm sm:text-base"
+                  className="p-3 sm:p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm sm:text-base"
                 >
                   {error}
                 </motion.div>
               )}
 
+              {/* Question 1: First visit */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.firstVisit}
+                    onChange={(e) => handleChange("firstVisit", e.target.checked)}
+                    className="w-5 h-5 rounded border-gray-300 text-popular focus:ring-2 focus:ring-popular/20 cursor-pointer"
+                  />
+                  <span className="text-gray-800 font-semibold text-sm sm:text-base">
+                    Is this your first time at our restaurant?
+                  </span>
+                </label>
+              </motion.div>
+
+              {/* Question 2: Overall satisfaction */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.35 }}
+              >
+                <StarRating
+                  field="overall"
+                  value={formData.overallRating}
+                  label="What is overall your satisfaction with our restaurant?"
+                />
+              </motion.div>
+
+              {/* Question 3: Hygiene rating */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="mb-4 sm:mb-6"
               >
-                <label
-                  htmlFor="name"
-                  className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
-                >
-                  Your Name *
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter your name"
-                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base"
-                  required
+                <StarRating
+                  field="hygiene"
+                  value={formData.hygieneRating}
+                  label="How would you rate the hygiene?"
                 />
               </motion.div>
 
+              {/* Question 4: Taste rating */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.45 }}
-                className="mb-6 sm:mb-8"
               >
-                <label className="block text-gray-800 font-semibold mb-3 sm:mb-4 text-center text-sm sm:text-base">
-                  How would you rate your experience? *
-                </label>
-                <div className="flex justify-center gap-1 sm:gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <motion.button
-                      key={star}
-                      type="button"
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoveredRating(star)}
-                      onMouseLeave={() => setHoveredRating(0)}
-                      className="focus:outline-none p-1"
-                    >
-                      <Star
-                        className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-200 ${
-                          star <= (hoveredRating || rating)
-                            ? "fill-popular text-popular"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    </motion.button>
-                  ))}
-                </div>
-                {rating > 0 && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center mt-3 sm:mt-4 text-gray-600 text-sm sm:text-base"
-                  >
-                    {rating === 1 && "We're sorry to hear that"}
-                    {rating === 2 && "We'll do better"}
-                    {rating === 3 && "Thank you for your feedback"}
-                    {rating === 4 && "We're glad you enjoyed it"}
-                    {rating === 5 && "Amazing! Thank you so much!"}
-                  </motion.p>
-                )}
+                <StarRating
+                  field="taste"
+                  value={formData.tasteRating}
+                  label="How would you rate the taste of our food?"
+                />
               </motion.div>
 
+              {/* Question 5: Would come back */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.wouldComeBack}
+                    onChange={(e) => handleChange("wouldComeBack", e.target.checked)}
+                    className="w-5 h-5 rounded border-gray-300 text-popular focus:ring-2 focus:ring-popular/20 cursor-pointer"
+                  />
+                  <span className="text-gray-800 font-semibold text-sm sm:text-base">
+                    Would you come back to eat at our restaurant again?
+                  </span>
+                </label>
+              </motion.div>
+
+              {/* Question 6: Additional comments */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.55 }}
-                className="mb-6 sm:mb-8"
               >
                 <label
-                  htmlFor="comment"
+                  htmlFor="additionalComments"
                   className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
                 >
-                  Tell us more (optional)
+                  Is there anything else you want to tell us?
                 </label>
                 <textarea
-                  id="comment"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  id="additionalComments"
+                  value={formData.additionalComments}
+                  onChange={(e) => handleChange("additionalComments", e.target.value)}
                   rows="4"
                   placeholder="Share your thoughts with us..."
                   className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all resize-none text-gray-800 text-sm sm:text-base"
                 />
               </motion.div>
 
-              <motion.button
+              {/* Question 7: Name */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <label
+                  htmlFor="name"
+                  className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
+                >
+                  Name *
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  placeholder="Enter your name"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base"
+                  required
+                />
+              </motion.div>
+
+              {/* Question 8: Mobile number */}
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.65 }}
+              >
+                <label
+                  htmlFor="mobileNumber"
+                  className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
+                >
+                  Mobile Number *
+                </label>
+                <input
+                  id="mobileNumber"
+                  type="tel"
+                  value={formData.mobileNumber}
+                  onChange={(e) => handleChange("mobileNumber", e.target.value)}
+                  placeholder="Enter your mobile number"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base"
+                  required
+                />
+              </motion.div>
+
+              {/* Question 9: Email */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              >
+                <label
+                  htmlFor="email"
+                  className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  placeholder="Enter your email (optional)"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base"
+                />
+              </motion.div>
+
+              {/* Question 10: How did you hear about us */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.75 }}
+              >
+                <label
+                  htmlFor="howDidYouHear"
+                  className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
+                >
+                  How did you hear about us?
+                </label>
+                <select
+                  id="howDidYouHear"
+                  value={formData.howDidYouHear}
+                  onChange={(e) => handleChange("howDidYouHear", e.target.value)}
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base bg-white"
+                >
+                  <option value="">Select an option</option>
+                  <option value="social_media">Social Media</option>
+                  <option value="friend_family">Friend or Family</option>
+                  <option value="google_search">Google Search</option>
+                  <option value="passing_by">Passing By</option>
+                  <option value="advertisement">Advertisement</option>
+                  <option value="other">Other</option>
+                </select>
+              </motion.div>
+
+              {/* Submit button */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"

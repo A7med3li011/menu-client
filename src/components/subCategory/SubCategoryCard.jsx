@@ -1,44 +1,12 @@
-import { AlertTriangle, Utensils, X, Loader2, Gift } from "lucide-react";
-import {
-  imageBase,
-  deleteSubCategory,
-  getproductsBysubCat,
-} from "../../services/apis";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { Utensils } from "lucide-react";
+import { imageBase } from "../../services/apis";
 import { useNavigate } from "react-router-dom";
 
-export default function SubCategoryCard({ data, onDelete }) {
-  // State for the new details modal
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const token = useSelector((store) => store.user.token);
+export default function SubCategoryCard({ data }) {
   const navigate = useNavigate();
 
-  const handleEditClick = () => {
-    navigate(`/subcategory/${data?._id}`);
-  };
-
-  const handleDeleteClick = async () => {
-    setIsDeleting(true);
-    try {
-      await deleteSubCategory(data?._id, token);
-      toast.success("SubCategory deleted successfully");
-      if (onDelete) {
-        onDelete(data?._id);
-      }
-    } catch (error) {
-      toast.error("Error deleting subCategory: " + error.message);
-    }
-    setIsDeleting(false);
-  };
-
   const handleExploreClick = () => {
-    navigate(`/subcategoryDetails/${data?._id}`);
+    navigate(`/category/${data?._id}/products`);
   };
 
   return (
@@ -95,25 +63,12 @@ export default function SubCategoryCard({ data, onDelete }) {
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-2 space-y-1.5">
+          <div className="pt-2">
             <button
               onClick={handleExploreClick}
               className="w-full py-2 bg-popular/10 hover:bg-popular text-popular hover:text-white border border-popular/30 hover:border-popular rounded-lg font-medium text-sm transition-all duration-300"
             >
               Explore Sub Category
-            </button>
-            <button
-              onClick={handleEditClick}
-              className="w-full py-2 bg-popular/10 hover:bg-blue-800/20 text-popular hover:text-blue-400 border border-popular/30 hover:border-blue-500/50 rounded-lg font-medium text-sm transition-all duration-300"
-            >
-              Edit
-            </button>
-            <button
-              onClick={handleDeleteClick}
-              disabled={isDeleting}
-              className="w-full py-2 bg-popular/10 hover:bg-red-500/20 text-popular hover:text-red-400 border border-popular/30 hover:border-red-500/50 rounded-lg font-medium text-sm transition-all duration-300"
-            >
-              {isDeleting ? "Deleting..." : "Delete"}
             </button>
           </div>
         </div>

@@ -155,7 +155,7 @@ function SubCategories() {
                   {subCategory.title}
                 </h2>
                 {subCategory.description && (
-                  <p className="text-gray-600 text-sm line-clamp-2">
+                  <p className="text-gray-600 text-sm line-clamp-2  ">
                     {subCategory.description}
                   </p>
                 )}

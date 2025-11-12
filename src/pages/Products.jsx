@@ -168,10 +168,10 @@ function Products() {
                     {product.priceAfterDiscount ? (
                       <>
                         <span className="text-popular text-2xl font-bold">
-                          ${product.priceAfterDiscount}
+                          {product.priceAfterDiscount} EG
                         </span>
                         <span className="text-gray-500 text-lg line-through">
-                          ${product.price}
+                          {product.price} EG
                         </span>
                         <span className="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                           SALE
@@ -179,7 +179,7 @@ function Products() {
                       </>
                     ) : (
                       <span className="text-popular text-2xl font-bold">
-                        ${product.price}
+                        {product.price} EG
                       </span>
                     )}
                   </div>

@@ -30,7 +30,7 @@ function SubCategories() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-primary">
+      <div className="min-h-screen flex items-center justify-center ">
         <Loader2 className="w-12 h-12 animate-spin text-popular" />
       </div>
     );
@@ -151,7 +151,7 @@ function SubCategories() {
               </motion.div>
 
               <div className="p-4">
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {subCategory.title}
                 </h2>
                 {subCategory.description && (

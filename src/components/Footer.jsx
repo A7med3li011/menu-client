@@ -22,7 +22,7 @@ function Footer() {
     {
       name: "WhatsApp",
       icon: MessageCircle,
-      url: "https://wa.me/1234567890", // Replace with actual WhatsApp number
+      url: "https://wa.me/1107388099", // Replace with actual WhatsApp number
       color: "hover:text-[#25D366]",
     },
     {

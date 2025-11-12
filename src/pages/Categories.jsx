@@ -65,7 +65,7 @@ function Categories() {
               </div>
 
               <div className="p-4">
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {category.title}
                 </h2>
                 {category.description && (

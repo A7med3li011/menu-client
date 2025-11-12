@@ -137,7 +137,7 @@ function OfferDetails() {
                   <div className="flex items-center gap-3">
                     <Tag className="w-6 h-6 text-popular" />
                     <span className="text-popular text-5xl font-bold">
-                      ${offer.priceAfterDiscount}
+                      {offer.priceAfterDiscount} EG
                     </span>
                   </div>
                   <p className="text-gray-600 text-sm mt-2">
@@ -228,7 +228,7 @@ function OfferDetails() {
                     {item.price && (
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-popular text-xl font-bold">
-                          ${item.price}
+                          {item.price} EG
                         </span>
                         <span className="text-gray-500 text-xs">
                           Regular Price

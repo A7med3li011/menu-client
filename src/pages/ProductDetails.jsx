@@ -126,10 +126,10 @@ function ProductDetails() {
                   {product.priceAfterDiscount ? (
                     <div className="flex items-center gap-4 flex-wrap">
                       <span className="text-popular text-5xl font-bold">
-                        ${product.priceAfterDiscount}
+                        {product.priceAfterDiscount} EG
                       </span>
                       <span className="text-gray-500 text-3xl line-through">
-                        ${product.price}
+                        {product.price} EG
                       </span>
                       <span className="bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg">
                         SALE
@@ -137,7 +137,7 @@ function ProductDetails() {
                     </div>
                   ) : (
                     <span className="text-popular text-5xl font-bold">
-                      ${product.price}
+                      {product.price} EG
                     </span>
                   )}
                 </motion.div>
@@ -216,7 +216,7 @@ function ProductDetails() {
                           {extra.name}
                         </span>
                         <span className="text-popular font-bold">
-                          +${extra.price}
+                          +{extra.price} EG
                         </span>
                       </motion.div>
                     ))}

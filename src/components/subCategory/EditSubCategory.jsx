@@ -379,7 +379,7 @@ export default function EditSubCategory() {
 
   return (
     <div className="min-h-screen bg-primary p-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="w-[95%] md:max-w-4xl mx-auto">
         <div className="bg-secondary rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold text-white mb-8 text-center">
             {isEdit ? "Edit Subcategory" : "Add New Subcategory"}

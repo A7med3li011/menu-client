@@ -113,7 +113,7 @@ function Review() {
       transition={{ duration: 0.5 }}
       className="min-h-screen p-3 sm:p-4 md:p-6"
     >
-      <div className="max-w-2xl mx-auto">
+      <div className="w-[95%] md:max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-4 md:mb-6">
           <motion.button
             initial={{ opacity: 0, x: -20 }}

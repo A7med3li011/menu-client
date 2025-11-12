@@ -74,10 +74,10 @@ function Products() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-primary p-6"
+      className="min-h-screen bg-primary md:p-6"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="w-[95%] md:max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <motion.button
             initial={{ opacity: 0, x: -20 }}

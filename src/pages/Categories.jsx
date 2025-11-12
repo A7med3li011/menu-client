@@ -36,10 +36,10 @@ function Categories() {
 
   return (
     <div
-      className="min-h-screen p-6"
+      className="min-h-screen "
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="w-[95%]  md:max-w-7xl mx-auto">
         <div className="flex justify-center mb-8">
           <img src={logo} alt="Logo" className="h-24 md:h-32 object-contain" />
         </div>

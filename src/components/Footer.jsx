@@ -22,7 +22,7 @@ function Footer() {
     {
       name: "WhatsApp",
       icon: MessageCircle,
-      url: "https://wa.me/1107388099", // Replace with actual WhatsApp number
+      url: "https://wa.me/201107388099", // Replace with actual WhatsApp number
       color: "hover:text-[#25D366]",
     },
     {
@@ -40,7 +40,7 @@ function Footer() {
       transition={{ duration: 0.5 }}
       className="bg-primary/95 backdrop-blur-sm border-t border-gray-700 mt-auto"
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
+      <div className="w-[95%] md:max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         <div className="flex flex-col gap-4">
           {/* Top Section - Social Media & Review Button */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">

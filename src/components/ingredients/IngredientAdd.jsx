@@ -123,7 +123,7 @@ export default function IngredientAdd() {
 
   return (
     <div className="min-h-screen py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-[95%] md:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-secondary shadow-lg rounded-lg overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-to-r bg-popular/90 text-white px-6 py-4">

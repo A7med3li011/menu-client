@@ -71,7 +71,7 @@ const ViewCategoryDetails = () => {
 
   return (
     <div className="min-h-screen bg-primary p-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-[95%] md:max-w-7xl mx-auto">
         {/* --- Header --- */}
         <div className="bg-secondary rounded-lg shadow-lg p-6 mb-8">
           <div className="flex items-center justify-between mb-4">

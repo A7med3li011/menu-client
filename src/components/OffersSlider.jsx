@@ -2,14 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { getOffers, imageBase } from "../services/apis";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 
 function OffersSlider() {
   const navigate = useNavigate();
@@ -53,8 +52,7 @@ function OffersSlider() {
           clickable: true,
           dynamicBullets: true,
         }}
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination]}
         breakpoints={{
           640: {
             slidesPerView: 1,
@@ -81,20 +79,6 @@ function OffersSlider() {
                 alt={offer.title || "Offer"}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  {offer.title && (
-                    <h3 className="text-white text-xl font-bold mb-1">
-                      {offer.title}
-                    </h3>
-                  )}
-                  {offer.description && (
-                    <p className="text-gray-200 text-sm line-clamp-2">
-                      {offer.description}
-                    </p>
-                  )}
-                </div>
-              </div>
             </motion.div>
           </SwiperSlide>
         ))}
@@ -114,24 +98,6 @@ function OffersSlider() {
         .offers-swiper .swiper-pagination-bullet-active {
           opacity: 1;
           background: #d4a574;
-        }
-        .offers-swiper .swiper-button-next,
-        .offers-swiper .swiper-button-prev {
-          color: #fff;
-          background: rgba(212, 165, 116, 0.7);
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-        }
-        .offers-swiper .swiper-button-next:after,
-        .offers-swiper .swiper-button-prev:after {
-          font-size: 20px;
-        }
-        @media (max-width: 640px) {
-          .offers-swiper .swiper-button-next,
-          .offers-swiper .swiper-button-prev {
-            display: none;
-          }
         }
       `}</style>
     </motion.div>

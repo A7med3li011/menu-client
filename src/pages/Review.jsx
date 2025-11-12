@@ -40,7 +40,7 @@ function Review() {
   const StarRating = ({ field, value, label }) => (
     <div className="mb-6 sm:mb-8">
       <label className="block text-gray-800 font-semibold mb-3 text-sm sm:text-base">
-        {label} *
+        {label}
       </label>
       <div className="flex gap-1 sm:gap-2">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -53,23 +53,12 @@ function Review() {
           >
             <Star
               className={`w-6 h-6 sm:w-8 sm:h-8 transition-all duration-200 ${
-                star <= value
-                  ? "fill-popular text-popular"
-                  : "text-gray-300"
+                star <= value ? "fill-popular text-popular" : "text-gray-300"
               }`}
             />
           </motion.button>
         ))}
       </div>
-      {value > 0 && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mt-2 text-gray-600 text-xs sm:text-sm"
-        >
-          Rating: {value} out of 5
-        </motion.p>
-      )}
     </div>
   );
 
@@ -77,28 +66,8 @@ function Review() {
     e.preventDefault();
 
     // Validation
-    if (formData.overallRating === 0) {
-      setError("Please rate your overall satisfaction");
-      return;
-    }
-
-    if (formData.hygieneRating === 0) {
-      setError("Please rate the hygiene");
-      return;
-    }
-
-    if (formData.tasteRating === 0) {
-      setError("Please rate the taste of our food");
-      return;
-    }
-
     if (!formData.name.trim()) {
       setError("Please enter your name");
-      return;
-    }
-
-    if (!formData.mobileNumber.trim()) {
-      setError("Please enter your mobile number");
       return;
     }
 
@@ -131,7 +100,8 @@ function Review() {
     } catch (err) {
       setIsSubmitting(false);
       setError(
-        err.response?.data?.message || "Failed to submit review. Please try again."
+        err.response?.data?.message ||
+          "Failed to submit review. Please try again."
       );
     }
   };
@@ -164,7 +134,11 @@ function Review() {
             transition={{ duration: 0.6 }}
             className="flex justify-center"
           >
-            <img src={logo} alt="Logo" className="h-12 sm:h-14 md:h-16 lg:h-20 object-contain" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-12 sm:h-14 md:h-16 lg:h-20 object-contain"
+            />
           </motion.div>
 
           <div className="w-16 sm:w-24 md:w-32"></div>
@@ -229,7 +203,9 @@ function Review() {
                   <input
                     type="checkbox"
                     checked={formData.firstVisit}
-                    onChange={(e) => handleChange("firstVisit", e.target.checked)}
+                    onChange={(e) =>
+                      handleChange("firstVisit", e.target.checked)
+                    }
                     className="w-5 h-5 rounded border-gray-300 text-popular focus:ring-2 focus:ring-popular/20 cursor-pointer"
                   />
                   <span className="text-gray-800 font-semibold text-sm sm:text-base">
@@ -245,7 +221,7 @@ function Review() {
                 transition={{ duration: 0.5, delay: 0.35 }}
               >
                 <StarRating
-                  field="overall"
+                  field="overallRating"
                   value={formData.overallRating}
                   label="What is overall your satisfaction with our restaurant?"
                 />
@@ -258,7 +234,7 @@ function Review() {
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <StarRating
-                  field="hygiene"
+                  field="hygieneRating"
                   value={formData.hygieneRating}
                   label="How would you rate the hygiene?"
                 />
@@ -271,7 +247,7 @@ function Review() {
                 transition={{ duration: 0.5, delay: 0.45 }}
               >
                 <StarRating
-                  field="taste"
+                  field="tasteRating"
                   value={formData.tasteRating}
                   label="How would you rate the taste of our food?"
                 />
@@ -287,7 +263,9 @@ function Review() {
                   <input
                     type="checkbox"
                     checked={formData.wouldComeBack}
-                    onChange={(e) => handleChange("wouldComeBack", e.target.checked)}
+                    onChange={(e) =>
+                      handleChange("wouldComeBack", e.target.checked)
+                    }
                     className="w-5 h-5 rounded border-gray-300 text-popular focus:ring-2 focus:ring-popular/20 cursor-pointer"
                   />
                   <span className="text-gray-800 font-semibold text-sm sm:text-base">
@@ -311,7 +289,9 @@ function Review() {
                 <textarea
                   id="additionalComments"
                   value={formData.additionalComments}
-                  onChange={(e) => handleChange("additionalComments", e.target.value)}
+                  onChange={(e) =>
+                    handleChange("additionalComments", e.target.value)
+                  }
                   rows="4"
                   placeholder="Share your thoughts with us..."
                   className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all resize-none text-gray-800 text-sm sm:text-base"
@@ -351,16 +331,15 @@ function Review() {
                   htmlFor="mobileNumber"
                   className="block text-gray-800 font-semibold mb-2 sm:mb-3 text-sm sm:text-base"
                 >
-                  Mobile Number *
+                  Mobile Number
                 </label>
                 <input
                   id="mobileNumber"
                   type="tel"
                   value={formData.mobileNumber}
                   onChange={(e) => handleChange("mobileNumber", e.target.value)}
-                  placeholder="Enter your mobile number"
+                  placeholder="Enter your mobile number (optional)"
                   className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base"
-                  required
                 />
               </motion.div>
 
@@ -401,7 +380,9 @@ function Review() {
                 <select
                   id="howDidYouHear"
                   value={formData.howDidYouHear}
-                  onChange={(e) => handleChange("howDidYouHear", e.target.value)}
+                  onChange={(e) =>
+                    handleChange("howDidYouHear", e.target.value)
+                  }
                   className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-gray-300 focus:border-popular focus:ring-2 focus:ring-popular/20 outline-none transition-all text-gray-800 text-sm sm:text-base bg-white"
                 >
                   <option value="">Select an option</option>

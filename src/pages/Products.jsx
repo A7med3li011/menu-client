@@ -8,6 +8,7 @@ import {
 import { Loader2, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "../assets/final logo-03.png";
+import bgImage from "../assets/bg.jpg";
 
 function Products() {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ function Products() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-primary p-6"
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6">

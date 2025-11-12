@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProduct, imageBase } from "../services/apis";
 import { Loader2, ArrowLeft } from "lucide-react";
 import logo from "../assets/final logo-03.png";
+import bgImage from "../assets/bg.jpg";
 import { motion } from "framer-motion";
 function ProductDetails() {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ function ProductDetails() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-primary p-6"
+      style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">

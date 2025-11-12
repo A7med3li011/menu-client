@@ -16,7 +16,7 @@ function Footer() {
     {
       name: "Instagram",
       icon: Instagram,
-      url: "https://instagram.com",
+      url: "https://www.instagram.com/station_one_resturant_cafe/",
       color: "hover:text-[#E4405F]",
     },
     {

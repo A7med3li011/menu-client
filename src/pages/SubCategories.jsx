@@ -107,7 +107,7 @@ function SubCategories() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-gray-800 mb-2 text-center"
+          className="text-4xl font-bold text-white  text-center mb-5"
         >
           {category?.data?.title || "Subcategories"}
         </motion.h1>
@@ -151,7 +151,7 @@ function SubCategories() {
               </motion.div>
 
               <div className="p-4">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">
+                <h2 className="text-xl font-bold text-white mb-2">
                   {subCategory.title}
                 </h2>
                 {subCategory.description && (

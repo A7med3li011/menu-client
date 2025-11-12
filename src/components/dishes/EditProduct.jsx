@@ -28,7 +28,7 @@ const createProductSchema = (isEdit, hasExistingImage) =>
     price: Yup.number()
       .required("Price is required")
       .positive("Price must be positive")
-      .min(0.01, "Price must be at least $0.01"),
+      .min(0.01, "Price must be at least 0.01 EG"),
     category: Yup.string().required("Category is required"),
     subCategory: Yup.string().required("Sub-category is required"),
     ingredients: Yup.array()
@@ -530,7 +530,7 @@ export default function EditProduct() {
                 htmlFor="price"
                 className="block text-white font-medium mb-2"
               >
-                Price ($)
+                Price (EG)
               </label>
               <input
                 id="price"

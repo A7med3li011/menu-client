@@ -5,7 +5,7 @@ import bgImage from "../assets/bg.jpg";
 export default function Layout() {
   return (
     <div
-      className="flex bg-cover bg-center bg-fixed bg-no-repeat min-h-screen"
+      className=" bg-cover bg-center bg-fixed bg-no-repeat min-h-screen"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {/* Main Content */}

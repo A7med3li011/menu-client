@@ -3,8 +3,8 @@ import axios from "axios";
 export const baseUrl = `http://localhost:3001/api/v1`;
 export const imageBase = `http://localhost:3001/uploads/`;
 
-// export const baseUrl = `https://api.stationonelounge.com/api/v1`;
-// export const imageBase = `https://api.stationonelounge.com/uploads/`;
+export const baseUrl = `https://api.stationonelounge.com/api/v1`;
+export const imageBase = `https://api.stationonelounge.com/uploads/`;
 
 // ==================== CATEGORIES ====================
 export async function getCategories() {

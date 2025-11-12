@@ -8,6 +8,8 @@ export const imageBase = `https://api.stationonelounge.com/uploads/`;
 
 // ==================== CATEGORIES ====================
 export async function getCategories() {
+
+  
   const { data } = await axios.get(`${baseUrl}/category`);
   return data?.data;
 }

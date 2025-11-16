@@ -8,8 +8,6 @@ export const imageBase = `https://api.stationonelounge.com/uploads/`;
 
 // ==================== CATEGORIES ====================
 export async function getCategories() {
-
-  
   const { data } = await axios.get(`${baseUrl}/category`);
   return data?.data;
 }
@@ -43,6 +41,10 @@ export async function getSubCategory(id) {
 // ==================== PRODUCTS ====================
 export async function getProductsBySubCategory(subCategoryId) {
   const { data } = await axios.get(`${baseUrl}/product/cat/${subCategoryId}`);
+  return data;
+}
+export async function getProductsByMainCategory(categoryId) {
+  const { data } = await axios.get(`${baseUrl}/product/category/${categoryId}`);
   return data;
 }
 

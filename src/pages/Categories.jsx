@@ -50,9 +50,13 @@ function Categories() {
           {categories?.map((category) => (
             <div
               key={category._id}
-              onClick={() =>
-                navigate(`/category/${category._id}/subcategories`)
-              }
+              onClick={() => {
+                if (category.numsubCategory === 0) {
+                  navigate(`/category/${category._id}/products`);
+                } else {
+                  navigate(`/category/${category._id}/subcategories`);
+                }
+              }}
               className="bg-secondary rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl border border-gray-200 transition-all duration-300 hover:scale-105"
             >
               <div className="relative h-48 overflow-hidden">

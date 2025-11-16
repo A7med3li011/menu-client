@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getProductsBySubCategory,
+  getProductsByMainCategory,
   getSubCategory,
+  getCategory,
   imageBase,
 } from "../services/apis";
 import { Loader2, ArrowLeft } from "lucide-react";
@@ -12,11 +14,16 @@ import bgImage from "../assets/bg.jpg";
 
 function Products() {
   const navigate = useNavigate();
-  const { subCategoryId } = useParams();
+  const { subCategoryId, categoryId } = useParams();
 
-  const { data: subCategory } = useQuery({
-    queryKey: ["subcategory", subCategoryId],
-    queryFn: () => getSubCategory(subCategoryId),
+  // Determine if we're dealing with a category or subcategory
+  const isMainCategory = categoryId && !subCategoryId;
+  const id = isMainCategory ? categoryId : subCategoryId;
+
+  const { data: categoryData } = useQuery({
+    queryKey: ["category", id, isMainCategory],
+    queryFn: () => (isMainCategory ? getCategory(id) : getSubCategory(id)),
+    enabled: !!id,
   });
 
   const {
@@ -24,13 +31,18 @@ function Products() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products", subCategoryId],
-    queryFn: () => getProductsBySubCategory(subCategoryId),
+    queryKey: ["products", id, isMainCategory],
+    queryFn: () =>
+      isMainCategory
+        ? getProductsByMainCategory(id)
+        : getProductsBySubCategory(id),
+    enabled: !!id,
   });
 
   const products = productsData?.data || [];
-  const categoryId =
-    subCategory?.data?.category?._id || subCategory?.data?.category;
+  const parentCategoryId = isMainCategory
+    ? id
+    : categoryData?.data?.category?._id || categoryData?.data?.category;
 
   if (isLoading) {
     return (
@@ -84,11 +96,17 @@ function Products() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             whileHover={{ x: -5 }}
-            onClick={() => navigate("/")}
+            onClick={() => {
+              if (isMainCategory) {
+                navigate("/");
+              } else {
+                navigate(`/category/${parentCategoryId}/subcategories`);
+              }
+            }}
             className="flex items-center gap-2 text-popular hover:text-popular/80 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-            Back to Category
+            {isMainCategory ? "Back to Categories" : "Back to Subcategories"}
           </motion.button>
 
           <motion.div
@@ -113,16 +131,16 @@ function Products() {
           transition={{ duration: 0.6 }}
           className="text-4xl font-bold text-white mb-10 text-center"
         >
-          {subCategory?.data?.title || "Products"}
+          {categoryData?.data?.title || "Products"}
         </motion.h1>
-        {subCategory?.data?.description && (
+        {categoryData?.data?.description && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-600 text-center mb-8"
           >
-            {subCategory.data.description}
+            {categoryData.data.description}
           </motion.p>
         )}
 
